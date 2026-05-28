@@ -1,12 +1,131 @@
-﻿<Window x:Class="PCAdministration_.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PCAdministration_"
-        mc:Ignorable="d"
+﻿<Window x:Class="PCAdministration_.MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:PCAdministration_" 
+        mc:Ignorable="d" 
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="280"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ================= ЛЕВАЯ ЧАСТЬ ================= -->
+        <Grid Grid.Column="0" Margin="0,0,15,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="475"/>
+                    <ColumnDefinition Width="0*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Column="0" Width="110" HorizontalAlignment="Left">
+                    <Grid>
+                        <Path Stroke="#E0E0E0" StrokeThickness="12" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 15,90 A 45,45 0 1 1 105,90"/>
+                        <!-- Активный прогресс. Добавлено имя ProgressPath для управления цветом -->
+                        <Path x:Name="ProgressPath" Stroke="#00E676" StrokeThickness="12" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="15,90">
+                                        <ArcSegment x:Name="ProgressArc" Size="45,45" Point="105,90" SweepDirection="Clockwise" IsLargeArc="False"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0">
+                            <TextBlock x:Name="PCS" Text="100 \ 100" FontSize="11" FontWeight="Bold" Foreground="#37474F" HorizontalAlignment="Center"/>
+                            <TextBlock Text="ПК" FontSize="10" Foreground="#78909C" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+
+                <!-- Баннер -->
+
+
+                <!-- Кнопка -->
+
+            </Grid>
+
+            <!-- Карта сети -->
+            <Border Grid.Row="1" Background="#263238" CornerRadius="8">
+                <Grid>
+                    <TextBlock Text="Карта сети в реальном времени" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ================= ПРАВАЯ ЧАСТЬ ================= -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Content="Админ меню" Foreground="White" Height="40" Margin="0,0,0,15">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="BtnBorderRight" Background="#9E70FF" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BtnBorderRight" Property="Background" Value="#8555FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Border Grid.Row="1" Background="#ECEFF1" CornerRadius="8" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Лого проблемы&#x0a;(Инет, ПО и т.д)" FontSize="11" FontWeight="Bold" Foreground="#546E7A" TextWrapping="Wrap" Margin="2"/>
+                        <TextBlock Grid.Column="1" Text="Кабинет&#x0a;Номер ПК" FontSize="11" FontWeight="Bold" Foreground="#546E7A" TextWrapping="Wrap" Margin="2"/>
+                        <TextBlock Grid.Column="2" Text="Сообщение&#x0a;мастеру" FontSize="11" FontWeight="Bold" Foreground="#546E7A" TextWrapping="Wrap" Margin="2"/>
+                    </Grid>
+
+                    <ListBox Grid.Row="1" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBoxItem HorizontalContentAlignment="Stretch" Margin="0,0,0,8">
+                            <Border Background="White" CornerRadius="5" Padding="8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <!-- Исправлено -->
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Исправлено -->
+                                    <TextBlock Grid.Column="0" Text="Нет интернета" Foreground="#D32F2F" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="Каб. 204&#x0a;ПК-12" Foreground="#37474F" FontSize="12" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="Ученик выдернул кабель" Foreground="#546E7A" FontSize="11" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </ListBoxItem>
+                    </ListBox>
+                    <!-- ИСПРАВЛЕНО: Удален лишний тег <Grid> перед закрытием списка -->
+
+                    <TextBlock Text="(АВТОГЕНЕРАЦИЯ КАРТОЧЕК НИЖЕ)" Foreground="#B0BEC5" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" IsHitTestVisible="False"/>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
