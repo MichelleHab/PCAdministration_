@@ -24,16 +24,28 @@ namespace PCAdministration_
         {
             if (role is null)
                 throw new ArgumentNullException(role, "Argument is null!");
-            RoleType role;
-            
-            return role.Trim().ToLower() switch
+            RoleType result;
+            switch (role.Trim().ToLower())
             {
-                "mainadmin" or "main_admin" => RoleType.MainAdmin,
-                "admin" => RoleType.Admin,
-                "manager" => RoleType.Manager,
-                "user" => RoleType.User,
-                _ => RoleType.None
-            };
+                case "mainadmin":
+                case "main_admin":
+                    result = RoleType.MainAdmin;
+                    break;
+                case "admin":
+                    result = RoleType.Admin;
+                    break;
+                case "manager":
+                    result = RoleType.Manager;
+                    break;
+                case "user":
+                    result = RoleType.User;
+                    break;
+                default:
+                    result = RoleType.None;
+                    break;
+
+            }
+            return result;
         }
         public RoleType GetRole() { return this.role; }
         public void SetRole(RoleType role) { this.role = role; }
