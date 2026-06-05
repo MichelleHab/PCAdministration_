@@ -23,13 +23,10 @@ namespace PCAdministration_
                     {
                         if (parameters != null)
                             mySqlCommand.Parameters.AddRange(parameters);
-
-                        using (DataTable dt = new DataTable())
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(mySqlCommand))
                         {
-                            using (MySqlDataAdapter adapter = new MySqlDataAdapter(mySqlCommand))
-                            {
-                                adapter.Fill(dt);
-                            }
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
                             return dt;
                         }
                     }
@@ -38,10 +35,6 @@ namespace PCAdministration_
                 {
                     SqlRequestErrors(ex);
                     return null;
-                }
-                finally
-                {
-                    mySqlConnection.Close();
                 }
             }
         }
