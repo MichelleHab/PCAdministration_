@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace PCAdministration_
 {
@@ -23,15 +24,34 @@ namespace PCAdministration_
         {
             InitializeComponent();
         }
-
-        private void Click_Ok(object sender, RoutedEventArgs e)
+        public int? _currentId = null;
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(TxtName.Text) || string.IsNullOrWhiteSpace(TxtFloor.Text))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                if (string.IsNullOrWhiteSpace(TxtName.Text)) TxtName.Focus();
+                else TxtFloor.Focus();
+                return;
+            }
 
+
+            DialogResult = true; // Закрывает окно и возвращает успешный результат
+            Close();
         }
-
-        private void Click_Cancel(object sender, RoutedEventArgs e)
+        public CabinetWindow(int id, string name, string floor) : this()
         {
+            Title = "Редактирование записи";
+            _currentId = id;
 
+            // Заполняем поля текущими данными
+            TxtName.Text = name;
+            TxtFloor.Text = floor;
+        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
         }
     }
 }
