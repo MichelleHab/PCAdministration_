@@ -33,25 +33,50 @@ namespace PCAdministration_
             {
                 case "cabinet":
                     tb = Sql.Query("SELECT `name`, `floor` FROM `Answer_Book_problem`.`Cabinet` LIMIT 1000;");
+                    table = Tables.Cabinet;
                     break;
                 case "pc":
                     tb = Sql.Query("SELECT `cabinet_id`, `pc_number`, `ip` FROM `Answer_Book_problem`.`PC` LIMIT 1000;");
+                    table = Tables.PC; 
                     break;
                 case "problem":
                     tb = Sql.Query("SELECT `type`, `code`, `priority` FROM `Answer_Book_problem`.`Problem` LIMIT 1000;");
+                    table = Tables.Problem; 
                     break;
                 case "archive":
                     tb = Sql.Query("SELECT `master`, `problem_id`, `pc_id`, `status`, `solution_and_info` " +
                         "FROM `Answer_Book_problem`.`Archive` LIMIT 1000;");
+                    table = Tables.Archive; 
                     break;
                     default:
+                    table = Tables.None;
                     return;
             }
             MainDataGrid.ItemsSource = tb.DefaultView;
         }
-
+        public enum Tables
+        {
+            None,
+            Cabinet,
+            PC,
+            Problem,
+            Archive
+        }
+        private Tables table = Tables.None;
         // Действия правой панели
-        private void Add_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Добавление записи");
+        private void Add_Click(object sender, RoutedEventArgs e) 
+        {
+            switch (table)
+            {
+                case Tables.Cabinet:
+                    var window = new CabinetWindow();
+                    window.ShowDialog();
+                    window.Close();
+                    break;
+                default:
+                    return;
+            }
+        }
         private void Print_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Печать таблицы");
         private void Edit_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Редактирование записи");
         private void Delete_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Удаление записи");
